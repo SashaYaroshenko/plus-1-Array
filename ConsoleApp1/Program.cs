@@ -14,27 +14,52 @@ namespace ConsoleApp1
         }
     }
 
-    
-        public static class Kata
+    public static class Kata
+    {
+        public static int[] UpArray(int[] num)
         {
-            public static int[] UpArray(int[] num)
+            if (num == null)
             {
-
-                string res = "";
-                for(int i = 0; i < num.Length; i++)
-                {
-                    res += num[i];
-                }
-                int res1 = Convert.ToInt32(res);
-                res1 = res1 + 1;
-                char[] chars = res1.ToString().ToCharArray();
-                int[] Achars = new int[chars.Length];
-                for (int i = 0; i < chars.Length; i++)
-                {
-                    Achars[i] = Convert.ToInt32(chars[i].ToString());
-                }
-                return Achars;
+                return null;
             }
+            if (num.Length == 0)
+            {
+                return null;
+            }
+            if (num.Any(x => x < 0) == true)
+            {
+                return null;
+            }
+            if (num.Any(x => x > 9) == true)
+            {
+                return null;
+            }
+
+            num[num.Length - 1] += 1;
+            for (int i = num.Length - 1; i >= 0; i--)
+            {
+                if (num[i] == 10)
+                {
+                    num[i] = 0;
+                    if (i != 0)
+                    {
+                        num[i - 1] += 1;
+                    }
+                    else
+                    {
+                        List<int> list = num.ToList();
+                        list.Add(1);
+                        list.Reverse();
+                        num = list.ToArray();
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return num;
         }
-    
+    }
 }
